@@ -2,24 +2,28 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const terminalLines = [
-  "> Initializing BusinessAutomate...",
-  "> Loading 47 workflows...",
-  "> 2,340 hours saved...",
-  "> Rendering portfolio...",
+  { text: "> ssh businessautomate@server", delay: 25 },
+  { text: "> Authenticating...", delay: 20 },
+  { text: "> [OK] Connection established", delay: 20 },
+  { text: "> Loading 47 active workflows...", delay: 25 },
+  { text: "> ██████████████████████ 100%", delay: 15 },
+  { text: "> 2,340 hours reclaimed this quarter", delay: 25 },
+  { text: "> System status: ALL NOMINAL", delay: 25 },
+  { text: "> Rendering portfolio...", delay: 30 },
 ];
 
 const HeroSection = () => {
   const terminalRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
   const [lines, setLines] = useState<string[]>([]);
   const [currentLine, setCurrentLine] = useState("");
   const [showCursor, setShowCursor] = useState(true);
-  const [animDone, setAnimDone] = useState(false);
+  const [glitchText, setGlitchText] = useState(false);
 
   useEffect(() => {
     const el = terminalRef.current;
     if (!el) return;
-    gsap.to(el, { opacity: 1, duration: 0.5 });
+
+    gsap.fromTo(el, { opacity: 0, y: 30, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power3.out" });
 
     let lineIdx = 0;
     let charIdx = 0;
@@ -29,18 +33,22 @@ const HeroSection = () => {
       if (lineIdx >= terminalLines.length) {
         clearInterval(interval);
         setShowCursor(false);
+
+        // Glitch effect on title reveal
+        setGlitchText(true);
+        setTimeout(() => setGlitchText(false), 600);
+
         setTimeout(() => {
-          setAnimDone(true);
-          gsap.to("#main-title", { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
-          gsap.to("#hero-ctas", { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: "power3.out" });
-          gsap.to("#scroll-indicator", { opacity: 1, duration: 1, delay: 0.6 });
-        }, 500);
+          gsap.to("#main-title", { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" });
+          gsap.to("#hero-ctas", { opacity: 1, y: 0, duration: 1, delay: 0.4, ease: "power3.out" });
+          gsap.to("#scroll-indicator", { opacity: 1, duration: 1, delay: 0.8 });
+        }, 300);
         return;
       }
 
       const line = terminalLines[lineIdx];
-      if (charIdx < line.length) {
-        current += line[charIdx];
+      if (charIdx < line.text.length) {
+        current += line.text[charIdx];
         setCurrentLine(current);
         charIdx++;
       } else {
@@ -50,26 +58,54 @@ const HeroSection = () => {
         charIdx = 0;
         lineIdx++;
       }
-    }, 30);
+    }, 22);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center relative px-4 py-20">
-      <div ref={terminalRef} className="mb-12 opacity-0">
-        <div className="glass-card rounded-lg p-6 md:p-8 max-w-2xl w-full">
-          <div className="flex items-center gap-2 mb-4 border-b border-foreground/10 pb-3">
-            <div className="w-3 h-3 rounded-full bg-destructive"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            <span className="text-xs text-muted-foreground ml-2">businessautomate@terminal:~</span>
+    <section className="min-h-screen flex flex-col items-center justify-center relative px-4 py-20 overflow-hidden">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.07] pointer-events-none"
+        style={{ background: "radial-gradient(circle, hsl(191 100% 50%) 0%, transparent 70%)" }} />
+
+      <div ref={terminalRef} className="mb-12 opacity-0 w-full max-w-2xl">
+        <div className="relative glass-card rounded-xl overflow-hidden"
+          style={{ boxShadow: "0 0 60px rgba(0, 217, 255, 0.08), 0 20px 60px rgba(0,0,0,0.5)" }}>
+          
+          {/* Scanline overlay */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-10"
+            style={{
+              backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,217,255,0.1) 2px, rgba(0,217,255,0.1) 4px)",
+              backgroundSize: "100% 4px",
+            }} />
+
+          {/* Top bar */}
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-foreground/10 bg-foreground/[0.02]">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+            </div>
+            <div className="flex-1 flex justify-center">
+              <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.2em]">businessautomate@terminal:~</span>
+            </div>
+            <div className="flex gap-1.5 items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+              <span className="text-[9px] text-green-400/70 uppercase tracking-wider">live</span>
+            </div>
           </div>
-          <div className="font-mono text-sm md:text-base text-primary/80 space-y-2">
+
+          {/* Terminal body */}
+          <div className="p-5 md:p-6 font-mono text-sm md:text-base space-y-1 min-h-[260px]">
             {lines.map((l, i) => (
-              <div key={i}>{l}</div>
+              <div key={i} className={`${l.includes("[OK]") || l.includes("NOMINAL") ? "text-green-400/90" : l.includes("100%") ? "text-primary" : "text-primary/70"}`}>
+                {l}
+              </div>
             ))}
-            {currentLine && <div>{currentLine}</div>}
+            {currentLine && (
+              <div className="text-primary/70">{currentLine}</div>
+            )}
             {showCursor && (
               <span
                 className="inline-block w-[10px] h-[1.2em] bg-primary align-text-bottom ml-[2px]"
@@ -77,11 +113,18 @@ const HeroSection = () => {
               />
             )}
           </div>
+
+          {/* Bottom status bar */}
+          <div className="flex items-center justify-between px-5 py-2 border-t border-foreground/5 text-[9px] text-muted-foreground/40 uppercase tracking-wider">
+            <span>n8n v1.94.1</span>
+            <span>47 workflows active</span>
+            <span>latency: 12ms</span>
+          </div>
         </div>
       </div>
 
       <div id="main-title" className="text-center opacity-0">
-        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6">
+        <h1 className={`text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 ${glitchText ? "animate-glitch" : ""}`}>
           <span className="text-foreground text-glow">BUSINESS</span>
           <span className="text-primary text-glow">AUTOMATE</span>
         </h1>
