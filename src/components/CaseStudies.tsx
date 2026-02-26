@@ -75,9 +75,9 @@ const CaseStudies = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Case Studies</h2>
           <p className="text-muted-foreground">Real automation. Real results.</p>
         </div>
-        <div className="flex flex-col lg:flex-row gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {cases.map((c) => (
-            <div key={c.tag} className="case-card flex-1 glass-card rounded-2xl overflow-hidden min-h-[600px] relative group cursor-pointer">
+            <div key={c.tag} className="glass-card rounded-2xl overflow-hidden relative group cursor-pointer">
               <div className={`absolute inset-0 bg-gradient-to-br ${c.gradient} to-transparent`} />
               <div className="relative p-8 h-full flex flex-col">
                 <div className="mb-6">
