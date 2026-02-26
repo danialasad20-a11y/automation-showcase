@@ -106,11 +106,13 @@ const IntegrationCloud = () => {
 
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
+      const nodes = nodesRef.current;
 
-      nodesRef.current.forEach((node) => {
+      // Physics pass
+      nodes.forEach((node) => {
         // Mouse repulsion
-        const dx = node.x - mx;
-        const dy = node.y - my;
+        const dx = node.x + node.width / 2 - mx;
+        const dy = node.y + node.height / 2 - my;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < REPEL_RADIUS && dist > 0) {
           const force = (REPEL_RADIUS - dist) / REPEL_RADIUS * REPEL_FORCE;
@@ -133,10 +135,52 @@ const IntegrationCloud = () => {
         // Clamp to bounds
         node.x = Math.max(PADDING, Math.min(w - node.width - PADDING, node.x));
         node.y = Math.max(PADDING, Math.min(h - node.height - PADDING, node.y));
+      });
+
+      // Node-to-node separation to prevent overlap
+      const SEPARATION_PADDING = 6;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i];
+          const b = nodes[j];
+          const acx = a.x + a.width / 2;
+          const acy = a.y + a.height / 2;
+          const bcx = b.x + b.width / 2;
+          const bcy = b.y + b.height / 2;
+          const overlapX = (a.width / 2 + b.width / 2 + SEPARATION_PADDING) - Math.abs(acx - bcx);
+          const overlapY = (a.height / 2 + b.height / 2 + SEPARATION_PADDING) - Math.abs(acy - bcy);
+          if (overlapX > 0 && overlapY > 0) {
+            // Push apart along the axis of least overlap
+            if (overlapX < overlapY) {
+              const push = overlapX / 2;
+              const sign = acx < bcx ? -1 : 1;
+              a.x += sign * push;
+              b.x -= sign * push;
+              a.vx += sign * 0.5;
+              b.vx -= sign * 0.5;
+            } else {
+              const push = overlapY / 2;
+              const sign = acy < bcy ? -1 : 1;
+              a.y += sign * push;
+              b.y -= sign * push;
+              a.vy += sign * 0.5;
+              b.vy -= sign * 0.5;
+            }
+          }
+        }
+      }
+
+      // Re-clamp after separation
+      nodes.forEach((node) => {
+        node.x = Math.max(PADDING, Math.min(w - node.width - PADDING, node.x));
+        node.y = Math.max(PADDING, Math.min(h - node.height - PADDING, node.y));
 
         // Draw
         const pulse = Math.sin(time * 0.002 + node.pulsePhase) * 0.5 + 0.5;
-        const isNearMouse = dist < REPEL_RADIUS * 1.5;
+        const mdx = node.x + node.width / 2 - mx;
+        const mdy = node.y + node.height / 2 - my;
+        const mouseDist = Math.sqrt(mdx * mdx + mdy * mdy);
+        const isNearMouse = mouseDist < REPEL_RADIUS * 1.5;
         const alpha = isNearMouse ? 0.9 + pulse * 0.1 : 0.5 + pulse * 0.2;
         const borderAlpha = isNearMouse ? 0.8 : 0.25 + pulse * 0.15;
         const glowSize = isNearMouse ? 15 : 0;
