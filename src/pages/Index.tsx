@@ -4,6 +4,7 @@ import IntegrationCloud from "@/components/IntegrationCloud";
 import Calculator from "@/components/Calculator";
 import CaseStudies from "@/components/CaseStudies";
 import ReachOut from "@/components/ReachOut";
+import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
 
 const Index = () => (
@@ -15,6 +16,7 @@ const Index = () => (
     <Calculator />
     <ReachOut />
     <CaseStudies />
+    <CallToAction />
     <Footer />
   </div>
 );

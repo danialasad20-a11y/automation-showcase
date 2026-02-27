@@ -22,7 +22,7 @@ const ReachOut = () => {
     e.preventDefault();
     setStatus("loading");
     try {
-      const res = await fetch("https://businessautomate.online/webhook/d89d48d3-7f28-4e83-a999-3bcbc4b1c900", {
+      const res = await fetch("https://n8n.businessautomate.online/webhook/6775936d-2691-4901-a5ec-98dc145b5aec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, automation_request: message, timestamp: new Date().toISOString(), source: "businessautomate.online" }),
