@@ -73,10 +73,13 @@ const CaseStudySection = () => {
     if (!ref.current) return;
     const cards = ref.current.querySelectorAll(".case-card");
     const ctx = gsap.context(() => {
-      gsap.from(cards, {
-        scrollTrigger: { trigger: ref.current, start: "top 90%", toggleActions: "play none none none" },
-        opacity: 0, y: 30, duration: 0.6, stagger: 0.15, ease: "power2.out",
-      });
+      gsap.fromTo(cards, 
+        { opacity: 0, y: 30 },
+        {
+          scrollTrigger: { trigger: ref.current, start: "top 90%", toggleActions: "play none none none" },
+          opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: "power2.out",
+        }
+      );
     }, ref);
     return () => ctx.revert();
   }, []);
