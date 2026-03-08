@@ -33,7 +33,7 @@ const FinalCTA = () => {
               Book a free automation strategy call and discover how AI can save you hours every week.
             </p>
             <a
-              href="https://wa.me/923061110200"
+              href="https://calendly.com/danialasad20/30min"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-4 bg-white text-foreground rounded-xl font-semibold text-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
