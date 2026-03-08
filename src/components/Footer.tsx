@@ -1,6 +1,6 @@
 import { Mail, Phone, Calendar, ArrowUpRight, MessageCircle } from "lucide-react";
 
-const contactLinks = [
+const contactLinks: { name: string; href: string; icon: React.ReactNode; description: string; isChat?: boolean }[] = [
   {
     name: "WhatsApp",
     href: "https://wa.me/923061110200",
