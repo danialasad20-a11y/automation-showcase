@@ -15,11 +15,15 @@ const WorkflowShowcase = () => {
 
   useEffect(() => {
     if (!gridRef.current) return;
-    gsap.from(gridRef.current.querySelectorAll(".wf-card"), {
-      scrollTrigger: { trigger: gridRef.current, start: "top 85%" },
-      opacity: 0, y: 30, duration: 0.5, stagger: 0.06, ease: "power2.out",
-    });
-  }, []);
+    const cards = gridRef.current.querySelectorAll(".wf-card");
+    gsap.fromTo(cards,
+      { opacity: 0, y: 30 },
+      {
+        scrollTrigger: { trigger: gridRef.current, start: "top 85%" },
+        opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: "power2.out",
+      }
+    );
+  }, [active]);
 
   const filtered = active === "All" ? workflowDetails : workflowDetails.filter((w) => w.category === active);
 
