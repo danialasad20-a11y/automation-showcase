@@ -1,6 +1,6 @@
-import { Mail, Phone, Calendar, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, Calendar, ArrowUpRight, MessageCircle } from "lucide-react";
 
-const contactLinks = [
+const contactLinks: { name: string; href: string; icon: React.ReactNode; description: string; isChat?: boolean }[] = [
   {
     name: "WhatsApp",
     href: "https://wa.me/923061110200",
@@ -59,6 +59,13 @@ const contactLinks = [
     ),
     description: "Hire on Fiverr",
   },
+  {
+    name: "Live Chat",
+    href: "#live-chat",
+    icon: <MessageCircle className="w-6 h-6" />,
+    description: "Chat with our AI assistant",
+    isChat: true,
+  },
 ];
 
 const Footer = () => (
@@ -78,10 +85,11 @@ const Footer = () => (
         {contactLinks.map((link) => (
           <a
             key={link.name}
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex flex-col items-center gap-3 p-6 rounded-2xl border border-border bg-background hover:border-primary/40 hover:shadow-glow transition-all duration-300"
+            href={link.isChat ? undefined : link.href}
+            target={link.isChat ? undefined : "_blank"}
+            rel={link.isChat ? undefined : "noopener noreferrer"}
+            onClick={link.isChat ? (e) => { e.preventDefault(); window.dispatchEvent(new Event("open-chat-widget")); } : undefined}
+            className="group flex flex-col items-center gap-3 p-6 rounded-2xl border border-border bg-background hover:border-primary/40 hover:shadow-glow transition-all duration-300 cursor-pointer"
           >
             <div className="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center text-primary-foreground group-hover:scale-110 transition-transform">
               {link.icon}
