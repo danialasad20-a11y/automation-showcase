@@ -175,21 +175,49 @@ const N8nWorkflowDiagram = () => {
   const handleTouchEnd = () => setDragging(false);
 
   const buildPath = (fromId: string, toId: string) => {
-    const from = getNodeCenter(fromId);
-    const to = getNodeCenter(toId);
-    const dx = to.x - from.x;
-    const dy = to.y - from.y;
+    const fromNode = nodeMap[fromId];
+    const toNode = nodeMap[toId];
+    if (!fromNode || !toNode) return "";
 
-    // Straight-ish bezier
-    if (Math.abs(dy) > Math.abs(dx)) {
-      // Vertical dominant
-      const cy1 = from.y + dy * 0.4;
-      const cy2 = from.y + dy * 0.6;
-      return `M${from.x},${from.y} C${from.x},${cy1} ${to.x},${cy2} ${to.x},${to.y}`;
+    const fromCenter = { x: fromNode.x + NODE_W / 2, y: fromNode.y + NODE_H / 2 };
+    const toCenter = { x: toNode.x + NODE_W / 2, y: toNode.y + NODE_H / 2 };
+    const dx = toCenter.x - fromCenter.x;
+    const dy = toCenter.y - fromCenter.y;
+
+    let startX: number, startY: number, endX: number, endY: number;
+
+    if (Math.abs(dx) >= Math.abs(dy)) {
+      // Horizontal: exit right edge, enter left edge (or vice versa)
+      if (dx >= 0) {
+        startX = fromNode.x + NODE_W;
+        startY = fromCenter.y;
+        endX = toNode.x;
+        endY = toCenter.y;
+      } else {
+        startX = fromNode.x;
+        startY = fromCenter.y;
+        endX = toNode.x + NODE_W;
+        endY = toCenter.y;
+      }
+      const cx1 = startX + (endX - startX) * 0.4;
+      const cx2 = startX + (endX - startX) * 0.6;
+      return `M${startX},${startY} C${cx1},${startY} ${cx2},${endY} ${endX},${endY}`;
     } else {
-      const cx1 = from.x + dx * 0.4;
-      const cx2 = from.x + dx * 0.6;
-      return `M${from.x},${from.y} C${cx1},${from.y} ${cx2},${to.y} ${to.x},${to.y}`;
+      // Vertical: exit bottom edge, enter top edge (or vice versa)
+      if (dy >= 0) {
+        startX = fromCenter.x;
+        startY = fromNode.y + NODE_H;
+        endX = toCenter.x;
+        endY = toNode.y;
+      } else {
+        startX = fromCenter.x;
+        startY = fromNode.y;
+        endX = toCenter.x;
+        endY = toNode.y + NODE_H;
+      }
+      const cy1 = startY + (endY - startY) * 0.4;
+      const cy2 = startY + (endY - startY) * 0.6;
+      return `M${startX},${startY} C${startX},${cy1} ${endX},${cy2} ${endX},${endY}`;
     }
   };
 
