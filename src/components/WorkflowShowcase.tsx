@@ -1,109 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { workflowDetails } from "@/data/workflowDetails";
+import { ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const categories = ["All", "AI & LLMs", "Sales & CRM", "E-commerce", "Support", "Content", "IT Ops", "Data"];
-
-const workflows = [
-  {
-    title: "AI Lead Qualification Agent",
-    category: "Sales & CRM",
-    description: "AI chatbot qualifies inbound leads via WhatsApp, scores them, updates CRM, and books meetings automatically.",
-    nodes: ["Webhook", "AI Agent (GPT-4)", "HubSpot", "Google Calendar", "Slack"],
-    tags: ["WhatsApp", "HubSpot", "GPT-4"],
-    result: "3x more qualified meetings booked",
-  },
-  {
-    title: "RAG Document Chatbot",
-    category: "AI & LLMs",
-    description: "Company knowledge base chatbot using Retrieval Augmented Generation with vector embeddings.",
-    nodes: ["Google Drive", "Text Splitter", "Pinecone Embeddings", "AI Agent", "Chat Widget"],
-    tags: ["Pinecone", "OpenAI", "RAG"],
-    result: "90% fewer support tickets",
-  },
-  {
-    title: "E-commerce Order Automation",
-    category: "E-commerce",
-    description: "Shopify order triggers inventory check, invoice generation, shipping label creation, and customer notification.",
-    nodes: ["Shopify Trigger", "Inventory Check", "QuickBooks Invoice", "ShipStation", "Email"],
-    tags: ["Shopify", "QuickBooks", "ShipStation"],
-    result: "200+ hrs/month saved",
-  },
-  {
-    title: "AI Voice Agent for Bookings",
-    category: "AI & LLMs",
-    description: "AI-powered voice agent answers phone calls, understands intent, and books appointments in real-time.",
-    nodes: ["Twilio Voice", "Speech-to-Text", "AI Agent", "Calendly", "CRM Update"],
-    tags: ["Twilio", "ElevenLabs", "Calendly"],
-    result: "24/7 phone answering",
-  },
-  {
-    title: "Social Media Content Pipeline",
-    category: "Content",
-    description: "AI generates, reviews, and schedules content across Instagram, TikTok, LinkedIn, and Twitter from a single brief.",
-    nodes: ["Airtable Brief", "GPT-4 Writer", "DALL-E Image", "Buffer Schedule", "Analytics"],
-    tags: ["GPT-4", "DALL-E", "Buffer"],
-    result: "30 posts/week automated",
-  },
-  {
-    title: "Multi-Channel Customer Support",
-    category: "Support",
-    description: "Unified inbox pulling from email, chat, WhatsApp, and social — AI triages and responds to common queries.",
-    nodes: ["Email Trigger", "WhatsApp", "AI Classifier", "Zendesk Ticket", "Slack Alert"],
-    tags: ["Zendesk", "WhatsApp", "AI"],
-    result: "< 30s response time",
-  },
-  {
-    title: "Automated Invoice & Payment Flow",
-    category: "IT Ops",
-    description: "Generates invoices from project completion, sends to clients, tracks payments, and updates accounting.",
-    nodes: ["Project Trigger", "PDF Generator", "Stripe Invoice", "Xero Sync", "Reminder Bot"],
-    tags: ["Stripe", "Xero", "PDF"],
-    result: "Zero manual invoicing",
-  },
-  {
-    title: "Data Warehouse ETL Pipeline",
-    category: "Data",
-    description: "Extracts data from multiple SaaS tools, transforms it, and loads into a data warehouse for dashboards.",
-    nodes: ["API Pulls", "Data Transform", "PostgreSQL Load", "dbt Trigger", "Metabase Refresh"],
-    tags: ["PostgreSQL", "dbt", "Metabase"],
-    result: "Real-time dashboards",
-  },
-  {
-    title: "Employee Onboarding Automation",
-    category: "IT Ops",
-    description: "New hire triggers account creation across all tools, sends welcome kit, schedules training, assigns buddy.",
-    nodes: ["HR Trigger", "Google Workspace", "Slack Invite", "Notion Page", "Calendar Events"],
-    tags: ["Google", "Slack", "Notion"],
-    result: "Onboarding in minutes",
-  },
-  {
-    title: "AI Sales Email Sequences",
-    category: "Sales & CRM",
-    description: "Personalized AI-written email sequences based on lead behavior, with automatic follow-ups and A/B testing.",
-    nodes: ["CRM Trigger", "AI Writer", "SendGrid", "Open Tracker", "Slack Notify"],
-    tags: ["SendGrid", "GPT-4", "HubSpot"],
-    result: "40% higher open rates",
-  },
-  {
-    title: "Warehouse Management Sync",
-    category: "E-commerce",
-    description: "Real-time sync between WMS, e-commerce platforms, and accounting. Auto-reorder when stock is low.",
-    nodes: ["WMS Webhook", "Shopify Sync", "Low Stock Alert", "PO Generator", "Slack"],
-    tags: ["WMS", "Shopify", "Slack"],
-    result: "Zero stockouts",
-  },
-  {
-    title: "AI Meeting Summarizer",
-    category: "AI & LLMs",
-    description: "Records meetings, transcribes with Whisper, summarizes with GPT-4, creates action items in project management tools.",
-    nodes: ["Zoom Recording", "Whisper STT", "GPT-4 Summary", "Asana Tasks", "Slack Post"],
-    tags: ["Whisper", "GPT-4", "Asana"],
-    result: "Never miss an action item",
-  },
-];
+const categories = ["All", ...Array.from(new Set(workflowDetails.map((w) => w.category)))];
 
 const WorkflowShowcase = () => {
   const [active, setActive] = useState("All");
@@ -117,7 +21,7 @@ const WorkflowShowcase = () => {
     });
   }, []);
 
-  const filtered = active === "All" ? workflows : workflows.filter(w => w.category === active);
+  const filtered = active === "All" ? workflowDetails : workflowDetails.filter((w) => w.category === active);
 
   return (
     <section id="workflows" className="section-padding">
@@ -133,7 +37,7 @@ const WorkflowShowcase = () => {
 
         {/* Category tabs */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {categories.map(cat => (
+          {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActive(cat)}
@@ -151,38 +55,56 @@ const WorkflowShowcase = () => {
         {/* Workflow grid */}
         <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((wf) => (
-            <div key={wf.title} className="wf-card bg-card rounded-xl border border-border p-6 card-hover group">
+            <Link
+              key={wf.slug}
+              to={`/workflows/${wf.slug}`}
+              className="wf-card bg-card rounded-xl border border-border p-6 card-hover group block"
+            >
               {/* Category label */}
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded">{wf.category}</span>
-                <span className="text-xs text-muted-foreground font-mono">{wf.nodes.length} nodes</span>
+                <span
+                  className="text-xs font-mono px-2 py-1 rounded font-semibold"
+                  style={{ backgroundColor: wf.categoryColor + "22", color: wf.categoryColor }}
+                >
+                  {wf.category}
+                </span>
+                <span className="text-xs text-muted-foreground font-mono">{wf.nodeCount} nodes</span>
               </div>
 
               <h3 className="text-lg font-semibold text-foreground mb-2">{wf.title}</h3>
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{wf.description}</p>
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2">{wf.description}</p>
 
-              {/* Visual node chain */}
+              {/* Simplified flow */}
               <div className="flex flex-wrap items-center gap-1 mb-4">
-                {wf.nodes.map((node, i) => (
-                  <span key={node} className="flex items-center gap-1">
+                {wf.simplifiedFlow.split(" → ").slice(0, 4).map((node, i, arr) => (
+                  <span key={i} className="flex items-center gap-1">
                     <span className="text-xs bg-secondary px-2 py-1 rounded text-secondary-foreground font-mono">{node}</span>
-                    {i < wf.nodes.length - 1 && <span className="text-muted-foreground text-xs">→</span>}
+                    {i < arr.length - 1 && <span className="text-muted-foreground text-xs">→</span>}
                   </span>
                 ))}
+                {wf.simplifiedFlow.split(" → ").length > 4 && (
+                  <span className="text-xs text-muted-foreground">+{wf.simplifiedFlow.split(" → ").length - 4}</span>
+                )}
               </div>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-4">
-                {wf.tags.map(tag => (
+                {wf.tools.slice(0, 3).map((tag) => (
                   <span key={tag} className="text-xs text-muted-foreground border border-border rounded px-2 py-0.5">{tag}</span>
                 ))}
+                {wf.tools.length > 3 && (
+                  <span className="text-xs text-muted-foreground">+{wf.tools.length - 3}</span>
+                )}
               </div>
 
-              {/* Result */}
-              <div className="pt-4 border-t border-border">
-                <p className="text-sm font-semibold gradient-text">{wf.result}</p>
+              {/* Result + View link */}
+              <div className="pt-4 border-t border-border flex items-center justify-between">
+                <p className="text-sm font-semibold gradient-text">{wf.valueMetric}</p>
+                <span className="text-xs text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  View Details <ArrowRight className="w-3 h-3" />
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
