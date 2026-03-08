@@ -20,7 +20,7 @@ const ChatWidget = () => {
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
+              className="w-8 h-8 rounded-full bg-primary-foreground/20 flex items-center justify-center hover:bg-primary-foreground/30 transition-colors"
               aria-label="Close chat"
             >
               <X className="w-4 h-4 text-primary-foreground" />

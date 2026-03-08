@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,29 +18,29 @@ const CallToAction = () => {
 
   return (
     <section ref={ref} className="py-24 md:py-36 px-4">
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
-          <span className="text-foreground">Ready to </span>
-          <span className="text-primary text-glow">Automate</span>
-          <span className="text-foreground">?</span>
+      <div className="max-w-4xl mx-auto text-center">
+        <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-foreground">
+          Ready to <span className="gradient-text">Automate</span>?
         </h2>
-        <p className="text-muted-foreground text-lg md:text-xl mb-10 max-w-xl mx-auto">
-          Stop doing repetitive work. Let systems handle the boring stuff while you focus on growing your business.
+        <p className="text-muted-foreground text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
+          Book a free automation strategy call and discover how I can save you hours every week 
+          with custom workflow automation.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="mailto:danialasad20@gmail.com"
-            className="px-8 py-4 bg-primary text-primary-foreground rounded font-mono text-sm uppercase tracking-widest hover:shadow-cyan-glow transition-all duration-300"
-          >
-            [ LET'S AUTOMATE ]
-          </a>
           <a
             href="https://wa.me/923061110200"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 border border-primary/50 text-primary rounded font-mono text-sm uppercase tracking-widest hover:border-primary hover:shadow-cyan-glow transition-all duration-300"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 gradient-bg text-primary-foreground rounded-xl font-semibold text-base shadow-glow hover:shadow-glow-lg transition-all duration-300 hover:-translate-y-0.5"
           >
-            [ WHATSAPP ME ]
+            Book Free Consultation
+            <ArrowRight className="w-5 h-5" />
+          </a>
+          <a
+            href="mailto:danialasad20@gmail.com"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border rounded-xl font-semibold text-base text-foreground hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+          >
+            Email Me
           </a>
         </div>
       </div>
