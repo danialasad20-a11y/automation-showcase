@@ -36,7 +36,7 @@ const ReachOut = () => {
   };
 
   return (
-    <section ref={sectionRef} className="section-padding">
+    <section ref={sectionRef} className="section-padding border-t border-border">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="section-heading mb-4">
@@ -51,7 +51,7 @@ const ReachOut = () => {
               <div className="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mx-auto mb-4">
                 <Send className="w-7 h-7 text-primary-foreground" />
               </div>
-              <p className="text-xl font-semibold mb-2">Message received!</p>
+              <p className="text-xl font-semibold text-foreground mb-2">Message received!</p>
               <p className="text-muted-foreground">I'll get back to you within 24 hours with a plan.</p>
             </div>
           ) : (
@@ -64,7 +64,7 @@ const ReachOut = () => {
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-border bg-secondary text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
                 />
               </div>
               <div>
@@ -75,7 +75,7 @@ const ReachOut = () => {
                   placeholder="Describe your workflow..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-border bg-secondary text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
                 />
               </div>
               <button

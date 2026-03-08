@@ -51,9 +51,9 @@ export default {
         },
       },
       boxShadow: {
-        "soft": "0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)",
-        "glow": "0 0 30px hsl(262 83% 58% / 0.2)",
-        "glow-lg": "0 0 60px hsl(262 83% 58% / 0.3)",
+        "soft": "0 2px 15px -3px rgba(0, 0, 0, 0.3), 0 10px 20px -2px rgba(0, 0, 0, 0.2)",
+        "glow": "0 0 30px hsl(8 85% 62% / 0.2)",
+        "glow-lg": "0 0 60px hsl(8 85% 62% / 0.3)",
       },
       borderRadius: {
         lg: "var(--radius)",
