@@ -59,6 +59,13 @@ const contactLinks = [
     ),
     description: "Hire on Fiverr",
   },
+  {
+    name: "Live Chat",
+    href: "#live-chat",
+    icon: <MessageCircle className="w-6 h-6" />,
+    description: "Chat with our AI assistant",
+    isChat: true,
+  },
 ];
 
 const Footer = () => (

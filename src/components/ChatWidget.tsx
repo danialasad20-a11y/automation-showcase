@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageCircle, X } from "lucide-react";
 
 const CHAT_URL = "https://n8n.businessautomate.online/webhook/ae0e4c69-bba2-419b-aa92-0ed5c3ced701/chat";
 
 const ChatWidget = () => {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("open-chat-widget", handler);
+    return () => window.removeEventListener("open-chat-widget", handler);
+  }, []);
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
