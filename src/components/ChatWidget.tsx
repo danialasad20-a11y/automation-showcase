@@ -12,7 +12,7 @@ const ChatWidget = () => {
         <div className="mb-4 w-[380px] h-[520px] bg-card rounded-2xl border border-border shadow-xl overflow-hidden animate-in slide-in-from-bottom-4 fade-in duration-300">
           <div className="gradient-bg flex items-center justify-between px-5 py-4">
             <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="BusinessAutomate" className="w-8 h-8 rounded-full" />
+              <img src="/logo.png" alt="BusinessAutomate" className="w-10 h-10 rounded-full" />
               <div>
                 <p className="text-sm font-semibold text-primary-foreground">BusinessAutomate</p>
                 <p className="text-xs text-primary-foreground/70">AI Assistant</p>

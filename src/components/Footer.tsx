@@ -5,7 +5,7 @@ const Footer = () => (
     <div className="max-w-6xl mx-auto">
       <div className="flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="BusinessAutomate" className="w-10 h-10 rounded-full" />
+          <img src="/logo.png" alt="BusinessAutomate" className="w-14 h-14 rounded-full" />
           <span className="font-semibold text-lg text-foreground">BusinessAutomate</span>
         </div>
 
