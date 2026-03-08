@@ -85,10 +85,11 @@ const Footer = () => (
         {contactLinks.map((link) => (
           <a
             key={link.name}
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex flex-col items-center gap-3 p-6 rounded-2xl border border-border bg-background hover:border-primary/40 hover:shadow-glow transition-all duration-300"
+            href={link.isChat ? undefined : link.href}
+            target={link.isChat ? undefined : "_blank"}
+            rel={link.isChat ? undefined : "noopener noreferrer"}
+            onClick={link.isChat ? (e) => { e.preventDefault(); window.dispatchEvent(new Event("open-chat-widget")); } : undefined}
+            className="group flex flex-col items-center gap-3 p-6 rounded-2xl border border-border bg-background hover:border-primary/40 hover:shadow-glow transition-all duration-300 cursor-pointer"
           >
             <div className="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center text-primary-foreground group-hover:scale-110 transition-transform">
               {link.icon}
