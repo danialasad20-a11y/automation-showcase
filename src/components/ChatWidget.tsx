@@ -50,7 +50,7 @@ const ChatWidget = () => {
         body: JSON.stringify({ chatInput: text, sessionId: sessionId.current }),
       });
       const data = await res.json();
-      const reply = typeof data === "string" ? data : data?.output || data?.text || data?.message || JSON.stringify(data);
+      const reply = typeof data === "string" ? data : data?.response || data?.output || data?.text || data?.message || JSON.stringify(data);
       setMessages((prev) => [...prev, { id: crypto.randomUUID(), text: reply, sender: "bot" }]);
     } catch {
       setMessages((prev) => [...prev, { id: crypto.randomUUID(), text: "Sorry, something went wrong. Please try again.", sender: "bot" }]);
