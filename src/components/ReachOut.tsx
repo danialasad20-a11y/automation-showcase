@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Send } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,8 +13,8 @@ const ReachOut = () => {
 
   useEffect(() => {
     if (!sectionRef.current) return;
-    gsap.from(sectionRef.current.querySelector(".glass-card"), {
-      scrollTrigger: { trigger: sectionRef.current, start: "top 80%", toggleActions: "play none none reverse" },
+    gsap.from(sectionRef.current.querySelector(".reach-card"), {
+      scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
       opacity: 0, y: 50, duration: 0.8, ease: "power2.out",
     });
   }, []);
@@ -35,37 +36,58 @@ const ReachOut = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-32 px-4">
+    <section ref={sectionRef} className="section-padding">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Build Your System</h2>
-          <p className="text-muted-foreground">Tell me what you'd like automated. I'll respond within 24 hours.</p>
+          <h2 className="section-heading mb-4">
+            Let's Build <span className="gradient-text">Your System</span>
+          </h2>
+          <p className="section-subheading">Tell me what you'd like automated. I'll respond within 24 hours.</p>
         </div>
-        <div className="glass-card rounded-2xl p-8 md:p-12">
+
+        <div className="reach-card bg-card rounded-2xl border border-border p-8 md:p-12 shadow-soft">
           {status === "success" ? (
             <div className="text-center py-8">
-              <div className="text-4xl mb-4">✓</div>
-              <p className="text-primary font-medium mb-2">Message received.</p>
-              <p className="text-sm text-muted-foreground">I'll get back to you within 24 hours with a plan.</p>
+              <div className="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mx-auto mb-4">
+                <Send className="w-7 h-7 text-primary-foreground" />
+              </div>
+              <p className="text-xl font-semibold mb-2">Message received!</p>
+              <p className="text-muted-foreground">I'll get back to you within 24 hours with a plan.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm text-primary mb-2 font-mono">
-                  <span className="text-muted-foreground">&gt;</span> Your email:
-                </label>
-                <input type="email" required placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="cyber-input w-full px-4 py-3 rounded font-mono" />
+                <label className="block text-sm font-medium text-foreground mb-2">Your email</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                />
               </div>
               <div>
-                <label className="block text-sm text-primary mb-2 font-mono">
-                  <span className="text-muted-foreground">&gt;</span> What would you like automated?
-                </label>
-                <textarea required rows={4} placeholder="Describe your workflow..." value={message} onChange={(e) => setMessage(e.target.value)} className="cyber-input w-full px-4 py-3 rounded font-mono resize-none" />
+                <label className="block text-sm font-medium text-foreground mb-2">What would you like automated?</label>
+                <textarea
+                  required
+                  rows={4}
+                  placeholder="Describe your workflow..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
+                />
               </div>
-              <button type="submit" disabled={status === "loading"} className="btn-cyan w-full py-4 border border-primary text-primary rounded font-mono text-sm uppercase tracking-widest">
-                {status === "loading" ? <div className="spinner" /> : "[ SEND MESSAGE ]"}
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="w-full py-4 gradient-bg text-primary-foreground rounded-xl font-semibold hover:shadow-glow transition-all duration-300 disabled:opacity-60"
+              >
+                {status === "loading" ? <div className="spinner" /> : "Send Message"}
               </button>
-              {status === "error" && <p className="text-destructive text-sm text-center">Something went wrong. Please try again or email directly.</p>}
+              {status === "error" && (
+                <p className="text-destructive text-sm text-center">Something went wrong. Please try again or email directly.</p>
+              )}
             </form>
           )}
         </div>
