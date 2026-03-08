@@ -12,6 +12,7 @@ export default {
     },
     extend: {
       fontFamily: {
+        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
       colors: {
@@ -48,15 +49,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        cyber: {
-          cyan: "hsl(var(--cyber-cyan))",
-          gray: "hsl(var(--cyber-gray))",
-          dark: "hsl(var(--cyber-dark))",
-        },
       },
       boxShadow: {
-        "cyan-glow": "0 0 30px hsl(191 100% 50% / 0.3)",
-        "cyan-glow-strong": "0 0 50px hsl(191 100% 50% / 0.5)",
+        "soft": "0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)",
+        "glow": "0 0 30px hsl(262 83% 58% / 0.2)",
+        "glow-lg": "0 0 60px hsl(262 83% 58% / 0.3)",
       },
       borderRadius: {
         lg: "var(--radius)",

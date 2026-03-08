@@ -1,23 +1,26 @@
 import HeroSection from "@/components/HeroSection";
-import WorkflowVisualizer from "@/components/WorkflowVisualizer";
-import IntegrationCloud from "@/components/IntegrationCloud";
+import WhoThisIsFor from "@/components/WhoThisIsFor";
+import AutomationsWeBuild from "@/components/AutomationsWeBuild";
+import HowItWorks from "@/components/HowItWorks";
 import Calculator from "@/components/Calculator";
-import CaseStudies from "@/components/CaseStudies";
 import ReachOut from "@/components/ReachOut";
-import CallToAction from "@/components/CallToAction";
+import CaseStudySection from "@/components/CaseStudySection";
+import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 
 const Index = () => (
-  <div className="grid-bg">
-    <div className="noise-overlay" />
+  <div className="min-h-screen bg-background">
     <HeroSection />
-    <WorkflowVisualizer />
-    <IntegrationCloud />
+    <WhoThisIsFor />
+    <AutomationsWeBuild />
+    <HowItWorks />
     <Calculator />
     <ReachOut />
-    <CaseStudies />
-    <CallToAction />
+    <CaseStudySection />
+    <FinalCTA />
     <Footer />
+    <ChatWidget />
   </div>
 );
 
