@@ -1,4 +1,4 @@
-import { Mail, Phone, Calendar, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, Calendar, ArrowUpRight, MessageCircle } from "lucide-react";
 
 const contactLinks = [
   {
