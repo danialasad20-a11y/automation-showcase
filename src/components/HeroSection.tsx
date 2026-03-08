@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ArrowRight, Zap } from "lucide-react";
+import N8nWorkflowDiagram from "./N8nWorkflowDiagram";
 
 const roles = [
   "AI Agents",
