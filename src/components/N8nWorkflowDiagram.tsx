@@ -270,8 +270,11 @@ const N8nWorkflowDiagram = () => {
 
       {/* SVG layer for connections + packets */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`, transformOrigin: "0 0" }}
+        className="absolute inset-0 pointer-events-none"
+        width="2000"
+        height="2000"
+        viewBox="0 0 2000 2000"
+        style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`, transformOrigin: "0 0", overflow: "visible" }}
       >
         <defs>
           <filter id="glow">
