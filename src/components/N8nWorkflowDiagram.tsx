@@ -294,10 +294,9 @@ const N8nWorkflowDiagram = () => {
               key={i}
               d={buildPath(from, to)}
               fill="none"
-              stroke={isHighlighted ? "hsl(8, 85%, 62%)" : "hsl(0, 0%, 28%)"}
-              strokeWidth={isHighlighted ? 2.5 : 1.5}
-              strokeDasharray={isHighlighted ? "none" : "none"}
-              opacity={hoveredNode && !isHighlighted ? 0.2 : 0.7}
+              stroke={isHighlighted ? "hsl(8, 85%, 62%)" : "hsl(0, 0%, 45%)"}
+              strokeWidth={isHighlighted ? 3 : 2}
+              opacity={hoveredNode && !isHighlighted ? 0.2 : 0.9}
               style={{ transition: "all 0.3s ease" }}
             />
           );
