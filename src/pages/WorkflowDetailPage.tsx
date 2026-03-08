@@ -36,7 +36,7 @@ const WorkflowDetailPage = () => {
             <span className="text-sm font-medium">All Workflows</span>
           </Link>
           <Link to="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="BusinessAutomate" className="h-8" />
+            <img src="/logo.png" alt="BusinessAutomate" className="h-12" />
           </Link>
         </div>
       </nav>
