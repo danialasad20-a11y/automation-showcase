@@ -71,10 +71,14 @@ const CaseStudySection = () => {
 
   useEffect(() => {
     if (!ref.current) return;
-    gsap.from(ref.current.querySelectorAll(".case-card"), {
-      scrollTrigger: { trigger: ref.current, start: "top 85%" },
+    const cards = ref.current.querySelectorAll(".case-card");
+    // Set initial state explicitly, then animate in
+    gsap.set(cards, { opacity: 1, y: 0 });
+    gsap.from(cards, {
+      scrollTrigger: { trigger: ref.current, start: "top 90%", toggleActions: "play none none none" },
       opacity: 0, y: 30, duration: 0.6, stagger: 0.15, ease: "power2.out",
     });
+    return () => { ScrollTrigger.getAll().forEach(t => t.kill()); };
   }, []);
 
   return (
