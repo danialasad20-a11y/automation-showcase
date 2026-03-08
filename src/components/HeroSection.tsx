@@ -70,8 +70,8 @@ const HeroSection = () => {
             </div>
 
             <h1 id="hero-headline" className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
-              I Automate{" "}
-              <span className="gradient-text">Anything</span>
+              Your Business on{" "}
+              <span className="gradient-text">Autopilot</span>
               <br />
               <span className="text-muted-foreground text-2xl sm:text-3xl lg:text-4xl font-medium">
                 Building{" "}
