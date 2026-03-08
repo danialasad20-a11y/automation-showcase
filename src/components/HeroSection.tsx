@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ArrowRight, Zap } from "lucide-react";
+import N8nWorkflowDiagram from "./N8nWorkflowDiagram";
 
 const roles = [
   "AI Agents",
@@ -105,45 +106,9 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right — Mini workflow diagram */}
-          <div className="relative">
-            <div className="bg-card/50 rounded-2xl border border-border p-6 lg:p-8 glow-shadow">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-3 h-3 rounded-full bg-destructive/60" />
-                <div className="w-3 h-3 rounded-full bg-accent/40" />
-                <div className="w-3 h-3 rounded-full bg-primary/40" />
-                <span className="ml-2 text-xs font-mono text-muted-foreground">workflow.json</span>
-              </div>
-
-              {/* Workflow nodes */}
-              <div className="space-y-0">
-                {[
-                  { icon: "🔌", label: "Trigger", sub: "Webhook / Schedule / Event", color: "border-primary/40" },
-                  { icon: "🤖", label: "AI Processing", sub: "GPT-4 / Claude / Gemini", color: "border-accent/40" },
-                  { icon: "🔀", label: "Router", sub: "Conditional Logic", color: "border-primary/30" },
-                  { icon: "💾", label: "Database", sub: "PostgreSQL / Supabase / Airtable", color: "border-accent/30" },
-                  { icon: "📤", label: "Output", sub: "Slack / Email / WhatsApp / CRM", color: "border-primary/40" },
-                ].map((node, i) => (
-                  <div key={node.label}>
-                    <div className={`hero-workflow-node n8n-node ${node.color}`}>
-                      <span className="text-lg">{node.icon}</span>
-                      <div>
-                        <p className="font-semibold text-foreground text-sm">{node.label}</p>
-                        <p className="text-xs text-muted-foreground">{node.sub}</p>
-                      </div>
-                    </div>
-                    {i < 4 && <div className="n8n-connector" />}
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 text-center">
-                <span className="inline-flex items-center gap-2 text-xs font-mono text-primary bg-primary/10 px-3 py-1.5 rounded-full">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                  Running in production
-                </span>
-              </div>
-            </div>
+          {/* Right — Interactive workflow diagram */}
+          <div className="relative h-[400px] sm:h-[500px] lg:h-[560px]">
+            <N8nWorkflowDiagram />
           </div>
         </div>
       </div>
