@@ -4,7 +4,7 @@ import WorkflowShowcase from "@/components/WorkflowShowcase";
 import Capabilities from "@/components/Capabilities";
 import HowItWorks from "@/components/HowItWorks";
 import CaseStudySection from "@/components/CaseStudySection";
-import Calculator from "@/components/Calculator";
+import Reviews from "@/components/Reviews";
 import ReachOut from "@/components/ReachOut";
 import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
@@ -18,7 +18,7 @@ const Index = () => (
     <Capabilities />
     <HowItWorks />
     <CaseStudySection />
-    <Calculator />
+    <Reviews />
     <ReachOut />
     <CallToAction />
     <Footer />

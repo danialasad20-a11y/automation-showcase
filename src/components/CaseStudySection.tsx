@@ -1,43 +1,68 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { TrendingUp, Clock, Target } from "lucide-react";
+import { TrendingUp, Clock, Target, Zap } from "lucide-react";
+import contentEngineImg from "@/assets/workflows/content-engine.png";
+import shopifyOrderImg from "@/assets/workflows/shopify-order-automation.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const cases = [
   {
-    title: "Real Estate Lead Automation",
-    problem: "Leads were responding slowly and many were lost due to delayed follow-ups.",
-    solution: "AI WhatsApp agent + automated CRM pipeline + instant follow-up sequences.",
+    title: "Social Media Content Engine",
+    image: contentEngineImg,
+    problem:
+      "Client spent 10+ hours weekly on social media — researching trends, writing posts, and manual publishing across 5 platforms.",
+    solution:
+      "Built an automation that scrapes Google News via SerpAPI, generates platform-specific captions with ChatGPT, creates custom images via API, and auto-posts to LinkedIn, Instagram, Twitter, Facebook, and TikTok. Integrated Airtable for content approval and n8n error handling with retry logic.",
     results: [
-      { icon: TrendingUp, value: "3x", label: "More booked appointments" },
-      { icon: Clock, value: "<10s", label: "Average response time" },
-      { icon: Target, value: "40%", label: "Increase in conversions" },
+      { icon: Clock, value: "80%", label: "Less time on content" },
+      { icon: TrendingUp, value: "4x", label: "Posting frequency" },
+      { icon: Target, value: "5 brands", label: "Scaled with zero effort" },
     ],
-    nodes: ["WhatsApp", "AI Agent", "HubSpot", "Google Calendar"],
+    tools: ["n8n", "OpenAI API", "SerpAPI", "Airtable", "Sora"],
   },
   {
-    title: "E-commerce Order Pipeline",
-    problem: "Manual order processing, invoicing, and shipping label creation taking 4+ hours daily.",
-    solution: "End-to-end Shopify automation with inventory sync, auto-invoicing, and shipping integration.",
+    title: "Shopify Order Automation",
+    image: shopifyOrderImg,
+    problem:
+      "Client was manually processing 200+ Shopify orders daily, spending 6 hours on data entry, inventory updates, and supplier notifications.",
+    solution:
+      "Built an end-to-end n8n automation that triggers on new orders, validates stock levels, updates Airtable inventory, sends WhatsApp alerts to suppliers, and posts shipping updates to Slack.",
     results: [
-      { icon: TrendingUp, value: "200+", label: "Hours saved monthly" },
-      { icon: Clock, value: "0", label: "Manual order processing" },
-      { icon: Target, value: "99.8%", label: "Order accuracy" },
+      { icon: Clock, value: "6h → 15m", label: "Daily processing" },
+      { icon: TrendingUp, value: "4x", label: "Order capacity" },
+      { icon: Target, value: "0", label: "Human errors" },
     ],
-    nodes: ["Shopify", "QuickBooks", "ShipStation", "Slack"],
+    tools: ["n8n", "Shopify", "Airtable", "WhatsApp", "Slack"],
   },
   {
-    title: "AI Customer Support Bot",
-    problem: "Support team overwhelmed with repetitive queries. 2-hour average response time.",
-    solution: "RAG-powered chatbot trained on company docs, with smart escalation to humans.",
+    title: "AI Video Content Pipeline",
+    image: contentEngineImg,
+    problem:
+      "Creative agency spending 20+ hours per week brainstorming, scripting, and manually producing short-form video content for multiple brands.",
+    solution:
+      "Automated pipeline using GPT-5 for idea generation, creative perspective injection, VEO3 for AI video rendering, and auto-distribution to TikTok and social platforms. Airtable tracks status and Google Sheets logs metadata.",
     results: [
-      { icon: TrendingUp, value: "90%", label: "Queries auto-resolved" },
-      { icon: Clock, value: "<30s", label: "Response time" },
-      { icon: Target, value: "4.8/5", label: "Customer satisfaction" },
+      { icon: Zap, value: "90%", label: "Production time saved" },
+      { icon: TrendingUp, value: "10x", label: "Video output" },
+      { icon: Target, value: "5 brands", label: "Managed simultaneously" },
     ],
-    nodes: ["Chat Widget", "AI Agent", "Pinecone", "Zendesk"],
+    tools: ["n8n", "GPT-5", "VEO3", "TikTok API", "Google Sheets"],
+  },
+  {
+    title: "Multi-Channel Order Routing",
+    image: shopifyOrderImg,
+    problem:
+      "E-commerce business with complex order types requiring different fulfillment paths — manual sorting led to delays and misrouted shipments.",
+    solution:
+      "Shopify trigger feeds into smart Switch node that routes orders by type. Each branch creates records, notifies the right team via Slack, sends WhatsApp confirmations, and handles conditional logic for edge cases.",
+    results: [
+      { icon: Clock, value: "<2min", label: "Order routing time" },
+      { icon: TrendingUp, value: "99.5%", label: "Routing accuracy" },
+      { icon: Target, value: "3 paths", label: "Automated branches" },
+    ],
+    tools: ["n8n", "Shopify", "Slack", "WhatsApp", "Airtable"],
   },
 ];
 
@@ -59,41 +84,59 @@ const CaseStudySection = () => {
           <h2 className="section-heading mb-4">
             Case <span className="gradient-text">Studies</span>
           </h2>
-          <p className="section-subheading">Real results from real automation projects.</p>
+          <p className="section-subheading">Real projects. Real results. Real screenshots.</p>
         </div>
 
-        <div ref={ref} className="grid lg:grid-cols-3 gap-6">
+        <div ref={ref} className="grid lg:grid-cols-2 gap-6">
           {cases.map((cs) => (
-            <div key={cs.title} className="case-card bg-card rounded-xl border border-border p-6 card-hover">
-              <h3 className="text-lg font-semibold text-foreground mb-3">{cs.title}</h3>
-
-              <div className="mb-4">
-                <p className="text-xs font-mono text-primary uppercase tracking-wider mb-1">Problem</p>
-                <p className="text-sm text-muted-foreground">{cs.problem}</p>
+            <div
+              key={cs.title}
+              className="case-card bg-card rounded-xl border border-border overflow-hidden card-hover"
+            >
+              {/* Workflow screenshot */}
+              <div className="aspect-[16/9] overflow-hidden bg-secondary">
+                <img
+                  src={cs.image}
+                  alt={`${cs.title} workflow screenshot`}
+                  className="w-full h-full object-cover object-center opacity-90 group-hover:opacity-100 transition-opacity"
+                />
               </div>
 
-              <div className="mb-4">
-                <p className="text-xs font-mono text-primary uppercase tracking-wider mb-1">Solution</p>
-                <p className="text-sm text-muted-foreground">{cs.solution}</p>
-              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-foreground mb-4">{cs.title}</h3>
 
-              <div className="flex flex-wrap items-center gap-1 mb-5">
-                {cs.nodes.map((n, i) => (
-                  <span key={n} className="flex items-center gap-1">
-                    <span className="text-xs bg-secondary px-2 py-0.5 rounded font-mono text-secondary-foreground">{n}</span>
-                    {i < cs.nodes.length - 1 && <span className="text-muted-foreground text-xs">→</span>}
-                  </span>
-                ))}
-              </div>
+                <div className="mb-4">
+                  <p className="text-xs font-mono text-destructive uppercase tracking-wider mb-1">Problem</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{cs.problem}</p>
+                </div>
 
-              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border">
-                {cs.results.map((r) => (
-                  <div key={r.label} className="text-center">
-                    <r.icon className="w-4 h-4 text-primary mx-auto mb-1" />
-                    <p className="text-xl font-bold gradient-text">{r.value}</p>
-                    <p className="text-[10px] text-muted-foreground leading-tight">{r.label}</p>
-                  </div>
-                ))}
+                <div className="mb-4">
+                  <p className="text-xs font-mono text-primary uppercase tracking-wider mb-1">Solution</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{cs.solution}</p>
+                </div>
+
+                {/* Tools */}
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {cs.tools.map((t) => (
+                    <span
+                      key={t}
+                      className="text-xs bg-secondary text-secondary-foreground px-2 py-0.5 rounded font-mono"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Results */}
+                <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border">
+                  {cs.results.map((r) => (
+                    <div key={r.label} className="text-center">
+                      <r.icon className="w-4 h-4 text-primary mx-auto mb-1" />
+                      <p className="text-xl font-bold gradient-text">{r.value}</p>
+                      <p className="text-[10px] text-muted-foreground leading-tight">{r.label}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
