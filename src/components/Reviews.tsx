@@ -117,31 +117,6 @@ const Reviews = () => {
         </div>
       </div>
 
-      {/* Video Reviews */}
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <h3 className="text-xl font-semibold text-foreground mb-2">Video Testimonials</h3>
-          <p className="text-sm text-muted-foreground">Hear directly from clients about their experience.</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-5">
-          {videoReviews.map((v) => (
-            <div key={v.name} className="bg-card rounded-xl border border-border overflow-hidden card-hover group">
-              <div className="aspect-video bg-secondary flex items-center justify-center relative">
-                <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
-                  <Play className="w-6 h-6 text-primary ml-0.5" />
-                </div>
-                <span className="absolute bottom-3 left-3 text-xs font-mono text-muted-foreground bg-card/80 px-2 py-1 rounded">
-                  Coming Soon
-                </span>
-              </div>
-              <div className="p-4">
-                <p className="text-sm font-semibold text-foreground">{v.name}</p>
-                <p className="text-xs text-muted-foreground">{v.company}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   );
 };

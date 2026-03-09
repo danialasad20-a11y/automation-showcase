@@ -36,34 +36,6 @@ const cases = [
     ],
     tools: ["n8n", "Shopify", "Airtable", "WhatsApp", "Slack"],
   },
-  {
-    title: "AI Video Content Pipeline",
-    image: contentEngineImg,
-    problem:
-      "Creative agency spending 20+ hours per week brainstorming, scripting, and manually producing short-form video content for multiple brands.",
-    solution:
-      "Automated pipeline using GPT-5 for idea generation, creative perspective injection, VEO3 for AI video rendering, and auto-distribution to TikTok and social platforms. Airtable tracks status and Google Sheets logs metadata.",
-    results: [
-      { icon: Zap, value: "90%", label: "Production time saved" },
-      { icon: TrendingUp, value: "10x", label: "Video output" },
-      { icon: Target, value: "5 brands", label: "Managed simultaneously" },
-    ],
-    tools: ["n8n", "GPT-5", "VEO3", "TikTok API", "Google Sheets"],
-  },
-  {
-    title: "Multi-Channel Order Routing",
-    image: shopifyOrderImg,
-    problem:
-      "E-commerce business with complex order types requiring different fulfillment paths — manual sorting led to delays and misrouted shipments.",
-    solution:
-      "Shopify trigger feeds into smart Switch node that routes orders by type. Each branch creates records, notifies the right team via Slack, sends WhatsApp confirmations, and handles conditional logic for edge cases.",
-    results: [
-      { icon: Clock, value: "<2min", label: "Order routing time" },
-      { icon: TrendingUp, value: "99.5%", label: "Routing accuracy" },
-      { icon: Target, value: "3 paths", label: "Automated branches" },
-    ],
-    tools: ["n8n", "Shopify", "Slack", "WhatsApp", "Airtable"],
-  },
 ];
 
 const CaseStudySection = () => {
