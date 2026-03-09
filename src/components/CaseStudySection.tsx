@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { TrendingUp, Clock, Target, Zap } from "lucide-react";
+import { TrendingUp, Clock, Target } from "lucide-react";
 import contentEngineImg from "@/assets/workflows/content-engine.png";
 import shopifyOrderImg from "@/assets/workflows/shopify-order-automation.png";
 
