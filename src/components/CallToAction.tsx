@@ -26,21 +26,15 @@ const CallToAction = () => {
           Book a free automation strategy call and discover how I can save you hours every week 
           with custom workflow automation.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex justify-center">
           <a
             href="https://calendly.com/danialasad20/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 gradient-bg text-primary-foreground rounded-xl font-semibold text-base shadow-glow hover:shadow-glow-lg transition-all duration-300 hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center gap-3 px-12 py-5 gradient-bg text-primary-foreground rounded-xl font-semibold text-lg shadow-glow hover:shadow-glow-lg transition-all duration-300 hover:-translate-y-0.5"
           >
             Book Free Consultation
-            <ArrowRight className="w-5 h-5" />
-          </a>
-          <a
-            href="mailto:danialasad20@gmail.com"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border rounded-xl font-semibold text-base text-foreground hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
-          >
-            Email Me
+            <ArrowRight className="w-6 h-6" />
           </a>
         </div>
       </div>
